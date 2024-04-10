@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.protoojs.droid.transports.AbsWebSocketTransport;
@@ -24,9 +22,9 @@ public class Peer implements AbsWebSocketTransport.Listener {
 
     void onFail();
 
-    void onRequest(@NonNull Message.Request request, @NonNull ServerRequestHandler handler);
+    void onRequest(Message.Request request, ServerRequestHandler handler);
 
-    void onNotification(@NonNull Message.Notification notification);
+    void onNotification(Message.Notification notification);
 
     void onDisconnected();
 
@@ -102,11 +100,11 @@ public class Peer implements AbsWebSocketTransport.Listener {
   // Closed flag.
   private boolean mClosed = false;
   // Transport.
-  @NonNull private final AbsWebSocketTransport mTransport;
+  private final AbsWebSocketTransport mTransport;
   // Listener.
-  @NonNull private final Listener mListener;
+  private final Listener mListener;
   // Handler for timeout check.
-  @NonNull private final Handler mTimerCheckHandler;
+  private final Handler mTimerCheckHandler;
   // Connected flag.
   private boolean mConnected;
   // Custom data object.
@@ -115,7 +113,7 @@ public class Peer implements AbsWebSocketTransport.Listener {
   @SuppressLint("UseSparseArrays")
   private Map<Long, ClientRequestHandlerProxy> mSends = new HashMap<>();
 
-  public Peer(@NonNull AbsWebSocketTransport transport, @NonNull Listener listener) {
+  public Peer(AbsWebSocketTransport transport, Listener listener) {
     mTransport = transport;
     mListener = listener;
     mTimerCheckHandler = new Handler(Looper.getMainLooper());
@@ -165,7 +163,7 @@ public class Peer implements AbsWebSocketTransport.Listener {
   }
 
   public void request(
-      String method, @NonNull JSONObject data, ClientRequestHandler clientRequestHandler) {
+      String method, JSONObject data, ClientRequestHandler clientRequestHandler) {
     JSONObject request = Message.createRequest(method, data);
     long requestId = request.optLong("id");
     Logger.d(TAG, String.format("request() [method:%s, data:%s]", method, data.toString()));

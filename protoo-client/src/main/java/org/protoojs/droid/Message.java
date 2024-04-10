@@ -2,8 +2,6 @@ package org.protoojs.droid;
 
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -223,8 +221,7 @@ public class Message {
     return request;
   }
 
-  @NonNull
-  public static JSONObject createSuccessResponse(@NonNull Request request, JSONObject data) {
+  public static JSONObject createSuccessResponse( Request request, JSONObject data) {
     JSONObject response = new JSONObject();
     try {
       response.put("response", true);
@@ -237,9 +234,8 @@ public class Message {
     return response;
   }
 
-  @NonNull
   public static JSONObject createErrorResponse(
-      @NonNull Request request, long errorCode, String errorReason) {
+       Request request, long errorCode, String errorReason) {
     JSONObject response = new JSONObject();
     try {
       response.put("response", true);
@@ -253,7 +249,7 @@ public class Message {
     return response;
   }
 
-  @NonNull
+  
   public static JSONObject createNotification(String method, JSONObject data) {
     JSONObject notification = new JSONObject();
     try {
